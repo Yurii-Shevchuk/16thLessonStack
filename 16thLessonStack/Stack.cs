@@ -14,19 +14,41 @@ namespace _16thLessonStack
 
         public void Push(T value)
         {
+            try
+            {
             _values[_topIndex] = value;
             _topIndex++;
+            }
+            catch(IndexOutOfRangeException)
+            {
+                throw new InvalidOperationException("The stack is full, clear it out before adding new elements.");
+            }
         }
 
         public T Pop()
         {
+            try
+            {
             _topIndex--;
             return _values[_topIndex];
+            }
+            catch(IndexOutOfRangeException)
+            {
+                throw new InvalidOperationException("Stack is empty, cannot pop elements.");
+            }
         }
 
         public T Peek()
         {
-            return _values[_topIndex-1];
+            try
+            {
+                return _values[_topIndex - 1];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new InvalidOperationException("Stack is empty, cannot peek elements.");
+            }
+            
         }
         
         public void Clear()
@@ -58,6 +80,8 @@ namespace _16thLessonStack
         }
 
         public int Count => _topIndex;
+
+        public int MaxCapacity => _values.Length;
 
     }
 }
